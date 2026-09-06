@@ -3,626 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 <title>GE Assignment PDFs</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(180deg,#f5f7fa 0%,#e4e8ec 100%);
-  min-height: 100vh;
-  color: #1a1a2e;
-  padding-bottom: 40px;
-}
-
-.app {
-  max-width: 430px;
-  margin: 0 auto;
-  padding: 16px;
-}
-
-.header {
-  text-align: center;
-  margin: 20px 0 16px;
-}
-
-.header h1 {
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
-
-.header p {
-  color: #6b7280;
-  font-size: 13px;
-  margin-top: 4px;
-  font-weight: 500;
-}
-
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.pill {
-  background: white;
-  padding: 8px 16px;
-  border-radius: 50px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  font-size: 12px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.dot.av {
-  background: #10b981;
-}
-
-.dot.so {
-  background: #ef4444;
-}
-
-.filters {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-}
-
-.filters::-webkit-scrollbar {
-  display: none;
-}
-
-.fbtn {
-  flex-shrink: 0;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 12px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  background: white;
-  color: #6b7280;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-  cursor: pointer;
-  transition: all .2s;
-}
-
-.fbtn.active {
-  background: #1a1a2e;
-  color: white;
-}
-
-.card {
-  background: white;
-  border-radius: 20px;
-  padding: 18px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-  margin-bottom: 14px;
-  position: relative;
-  overflow: hidden;
-  border: 2px solid transparent;
-  transition: all .3s ease;
-}
-
-.card:active {
-  transform: scale(0.98);
-}
-
-.card.sold {
-  opacity: .7;
-  background: #f9fafb;
-}
-
-.badge {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  z-index: 2;
-}
-
-.badge-av {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.badge-so {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.card-top {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  margin-bottom: 12px;
-}
-
-.icon-box {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: linear-gradient(135deg,#667eea,#764ba2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
-}
-
-.card.sold .icon-box {
-  background: linear-gradient(135deg,#9ca3af,#6b7280);
-}
-
-.card-info {
-  padding-right: 70px;
-}
-
-.card-info h3 {
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1.3;
-  margin-bottom: 3px;
-}
-
-.card-info .meta {
-  font-size: 12px;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.preview-thumb {
-  width: 100%;
-  height: 120px;
-  background: #f3f4f6;
-  border-radius: 12px;
-  margin: 10px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-  border: 1px dashed #d1d5db;
-  cursor: pointer;
-}
-
-.preview-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.preview-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 600;
-  font-size: 13px;
-  gap: 6px;
-}
-
-.card.sold .preview-thumb {
-  filter: grayscale(1);
-  opacity: .7;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.btn {
-  flex: 1;
-  padding: 11px;
-  border: none;
-  border-radius: 12px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  cursor: pointer;
-  text-align: center;
-  transition: all .2s;
-  text-decoration: none;
-}
-
-.btn-preview {
-  background: #f3f4f6;
-  color: #374151;
-}
-
-.btn-preview:active {
-  background: #e5e7eb;
-}
-
-.btn-checkout {
-  background: #1a1a2e;
-  color: white;
-}
-
-.btn-checkout:active {
-  background: #2d2d44;
-}
-
-.btn:disabled {
-  opacity: .5;
-  cursor: not-allowed;
-}
-
-.sold-bar {
-  background: #fee2e2;
-  color: #991b1b;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: 700;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 8px;
-}
-
-.sold-message {
-  text-align: center;
-  font-size: 11px;
-  color: #6b7280;
-  margin-top: 8px;
-}
-
-.modal-o {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(10px);
-  display: none;
-  z-index: 100;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.modal-o.active {
-  display: flex;
-}
-
-.modal-sheet {
-  background: white;
-  width: 100%;
-  max-width: 430px;
-  max-height: 85vh;
-  border-radius: 28px 28px 0 0;
-  padding: 20px 20px 30px;
-  animation: slideUp .3s ease;
-  overflow-y: auto;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to   { transform: translateY(0); }
-}
-
-.sheet-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.sheet-header h2 {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.close-x {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #f3f4f6;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.preview-frame {
-  width: 100%;
-  height: 280px;
-  background: #f3f4f6;
-  border-radius: 16px;
-  margin-bottom: 16px;
-  overflow: hidden;
-  border: 1px solid #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.preview-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.page-tag {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background: rgba(0,0,0,0.7);
-  color: white;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.preview-details {
-  margin-bottom: 16px;
-}
-
-.preview-details h4 {
-  font-size: 15px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.preview-details p {
-  font-size: 13px;
-  color: #6b7280;
-  line-height: 1.5;
-}
-
-.preview-meta {
-  display: flex;
-  gap: 16px;
-  margin-top: 10px;
-  font-size: 12px;
-  color: #6b7280;
-  flex-wrap: wrap;
-}
-
-.preview-meta span {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.sheet-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.sheet-actions .btn {
-  padding: 14px;
-  font-size: 14px;
-}
-
-.btn-primary {
-  background: #1a1a2e;
-  color: white;
-  flex: 2;
-}
-
-.btn-ghost {
-  background: #f3f4f6;
-  color: #374151;
-  flex: 1;
-}
-
-.checkout-o {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(8px);
-  display: none;
-  z-index: 200;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.checkout-o.active {
-  display: flex;
-}
-
-.checkout-box {
-  background: white;
-  border-radius: 24px;
-  padding: 28px;
-  width: 100%;
-  max-width: 360px;
-  box-shadow: 0 24px 48px rgba(0,0,0,0.15);
-  animation: pop .3s ease;
-}
-
-@keyframes pop {
-  from { opacity: 0; transform: scale(0.9); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-.checkout-box h3 {
-  font-size: 18px;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 4px;
-}
-
-.checkout-box .sub {
-  text-align: center;
-  color: #6b7280;
-  font-size: 13px;
-  margin-bottom: 20px;
-}
-
-.input-wrap {
-  margin-bottom: 16px;
-}
-
-.input-wrap label {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  color: #374151;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  margin-bottom: 6px;
-}
-
-.input-wrap input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  outline: none;
-  transition: border .2s;
-}
-
-.input-wrap input:focus {
-  border-color: #667eea;
-}
-
-.ck-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.ck-actions .btn {
-  padding: 13px;
-  font-size: 14px;
-}
-
-.success-state {
-  display: none;
-  text-align: center;
-  padding: 10px 0;
-}
-
-.success-state.active {
-  display: block;
-  animation: fade .4s ease;
-}
-
-@keyframes fade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-.success-icon {
-  width: 60px;
-  height: 60px;
-  background: #d1fae5;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 14px;
-  font-size: 26px;
-}
-
-.success-state h4 {
-  font-size: 16px;
-  margin-bottom: 4px;
-}
-
-.success-state .buyer {
-  color: #6b7280;
-  font-size: 13px;
-  margin-bottom: 16px;
-}
-
-.claimed-box {
-  background: #fee2e2;
-  color: #991b1b;
-  padding: 13px;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.5;
-}
-
-.empty {
-  text-align: center;
-  padding: 50px 20px;
-  color: #9ca3af;
-}
-
-.empty .big {
-  font-size: 40px;
-  margin-bottom: 10px;
-}
-
-.empty h3 {
-  color: #6b7280;
-  font-size: 16px;
-  margin-bottom: 4px;
-}
-
-.loading {
-  text-align: center;
-  padding: 40px 20px;
-  color: #6b7280;
-  font-size: 13px;
-}
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body {
+    font-family:'Inter',sans-serif;
+    background:linear-gradient(180deg,#f5f7fa 0%,#e4e8ec 100%);
+    min-height:100vh;
+    color:#1a1a2e;
+    padding-bottom:40px;
+  }
+  .app { max-width:430px; margin:0 auto; padding:16px; }
+  .header { text-align:center; margin:20px 0 16px; }
+  .header h1 { font-size:26px; font-weight:800; letter-spacing:-0.5px; }
+  .header p { color:#6b7280; font-size:13px; margin-top:4px; font-weight:500; }
+
+  .stats { display:flex; justify-content:center; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
+  .pill {
+    background:white; padding:8px 16px; border-radius:50px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05); font-size:12px; font-weight:600;
+    display:flex; align-items:center; gap:6px;
+  }
+  .dot { width:8px; height:8px; border-radius:50%; }
+  .dot.av { background:#10b981; } .dot.so { background:#ef4444; }
+
+  .filters { display:flex; gap:8px; margin-bottom:16px; overflow-x:auto; padding-bottom:4px; }
+  .filters::-webkit-scrollbar { display:none; }
+  .fbtn {
+    flex-shrink:0; padding:10px 18px; border:none; border-radius:12px;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13px;
+    background:white; color:#6b7280; box-shadow:0 1px4px rgba(0,0,0,0.04);
+    cursor:pointer; transition:all .2s;
+  }
+  .fbtn.active { background:#1a1a2e; color:white; }
+
+  .card {
+    background:white; border-radius:20px; padding:18px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.06); margin-bottom:14px;
+    position:relative; overflow:hidden; border:2px solid transparent;
+    transition:all .3s ease;
+  }
+  .card:active { transform:scale(0.98); }
+  .card.sold { opacity:.6; background:#f9fafb; }
+
+  .badge {
+    position:absolute; top:14px; right:14px; padding:5px 12px;
+    border-radius:20px; font-size:10px; font-weight:700; text-transform:uppercase;
+  }
+  .badge-av { background:#d1fae5; color:#065f46; }
+  .badge-so { background:#fee2e2; color:#991b1b; }
+
+  .card-top { display:flex; gap:14px; align-items:flex-start; margin-bottom:12px; }
+  .icon-box {
+    width:52px; height:52px; border-radius:14px;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; flex-shrink:0;
+  }
+  .card.sold .icon-box { background:linear-gradient(135deg,#9ca3af,#6b7280); }
+
+  .card-info h3 { font-size:15px; font-weight:700; line-height:1.3; margin-bottom:3px; }
+  .card-info .meta { font-size:12px; color:#6b7280; font-weight:500; }
+
+  /* Preview Thumbnail */
+  .preview-thumb {
+    width:100%; height:120px; background:#f3f4f6; border-radius:12px;
+    margin:10px 0; display:flex; align-items:center; justify-content:center;
+    overflow:hidden; position:relative; border:1px dashed #d1d5db;
+  }
+  .preview-thumb img { width:100%; height:100%; object-fit:cover; }
+  .preview-overlay {
+    position:absolute; inset:0; background:rgba(0,0,0,0.35);
+    display:flex; align-items:center; justify-content:center;
+    color:white; font-weight:600; font-size:13px; gap:6px;
+  }
+  .card.sold .preview-thumb { filter:grayscale(1); opacity:.7; }
+
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .btn {
+    flex:1; padding:11px; border:none; border-radius:12px;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13px;
+    cursor:pointer; text-align:center; transition:all .2s;
+  }
+  .btn-preview { background:#f3f4f6; color:#374151; }
+  .btn-preview:active { background:#e5e7eb; }
+  .btn-checkout { background:#1a1a2e; color:white; }
+  .btn-checkout:active { background:#2d2d44; }
+
+  .sold-bar {
+    background:#fee2e2; color:#991b1b; padding:10px; border-radius:10px;
+    text-align:center; font-weight:700; font-size:13px; display:flex;
+    align-items:center; justify-content:center; gap:6px; margin-top:8px;
+  }
+  .sold-by { font-size:11px; color:#6b7280; margin-top:8px; text-align:center; }
+
+  /* Preview Modal */
+  .modal-o {
+    position:fixed; inset:0; background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(10px); display:none; z-index:100;
+    align-items:flex-end; justify-content:center;
+  }
+  .modal-o.active { display:flex; }
+  .modal-sheet {
+    background:white; width:100%; max-width:430px; max-height:85vh;
+    border-radius:28px 28px 0 0; padding:20px 20px 30px;
+    animation:slideUp .3s ease; overflow-y:auto;
+  }
+  @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+
+  .sheet-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+  .sheet-header h2 { font-size:18px; font-weight:700; }
+  .close-x { width:36px; height:36px; border-radius:50%; background:#f3f4f6;
+    border:none; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+
+  .preview-frame {
+    width:100%; height:280px; background:#f3f4f6; border-radius:16px;
+    margin-bottom:16px; overflow:hidden; border:1px solid #e5e7eb;
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .preview-frame img { width:100%; height:100%; object-fit:cover; }
+  .page-tag {
+    position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.7);
+    color:white; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600;
+  }
+
+  .preview-details { margin-bottom:16px; }
+  .preview-details h4 { font-size:15px; font-weight:700; margin-bottom:6px; }
+  .preview-details p { font-size:13px; color:#6b7280; line-height:1.5; }
+  .preview-meta { display:flex; gap:16px; margin-top:10px; font-size:12px; color:#6b7280; }
+  .preview-meta span { display:flex; align-items:center; gap:4px; }
+
+  .sheet-actions { display:flex; gap:10px; }
+  .sheet-actions .btn { padding:14px; font-size:14px; }
+  .btn-primary { background:#1a1a2e; color:white; flex:2; }
+  .btn-ghost { background:#f3f4f6; color:#374151; flex:1; }
+
+  /* Checkout Modal */
+  .checkout-o { position:fixed; inset:0; background:rgba(0,0,0,0.5);
+    backdrop-filter:blur(8px); display:none; z-index:200; align-items:center; justify-content:center;
+    padding:20px;
+  }
+  .checkout-o.active { display:flex; }
+  .checkout-box {
+    background:white; border-radius:24px; padding:28px; width:100%; max-width:360px;
+    box-shadow:0 24px 48px rgba(0,0,0,0.15); animation:pop .3s ease;
+  }
+  @keyframes pop { from{opacity:0;transform:scale(0.9)} to{opacity:1;transform:scale(1)} }
+  .checkout-box h3 { font-size:18px; font-weight:700; text-align:center; margin-bottom:4px; }
+  .checkout-box .sub { text-align:center; color:#6b7280; font-size:13px; margin-bottom:20px; }
+
+  .input-wrap { margin-bottom:16px; }
+  .input-wrap label { display:block; font-size:11px; font-weight:600; color:#374151;
+    text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px;
+  }
+  .input-wrap input {
+    width:100%; padding:14px 16px; border:2px solid #e5e7eb; border-radius:12px;
+    font-family:'Inter',sans-serif; font-size:15px; outline:none; transition:border .2s;
+  }
+  .input-wrap input:focus { border-color:#667eea; }
+
+  .ck-actions { display:flex; gap:10px; }
+  .ck-actions .btn { padding:13px; font-size:14px; }
+
+  .success-state { display:none; text-align:center; padding:10px 0; }
+  .success-state.active { display:block; animation:fade .4s ease; }
+  @keyframes fade { from{opacity:0} to{opacity:1} }
+  .success-icon { width:60px; height:60px; background:#d1fae5; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:26px;
+  }
+  .success-state h4 { font-size:16px; margin-bottom:4px; }
+  .success-state .buyer { color:#6b7280; font-size:13px; margin-bottom:16px; }
+  .dl-btn {
+    display:inline-flex; align-items:center; gap:8px; padding:14px 28px;
+    background:#10b981; color:white; border:none; border-radius:12px;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:15px;
+    text-decoration:none; cursor:pointer;
+  }
+  .dl-btn:active { background:#059669; }
+
+  .scroll-hint { text-align:center; padding:20px; color:#9ca3af; font-size:12px; font-weight:500; }
+  .empty { text-align:center; padding:50px 20px; color:#9ca3af; }
+  .empty .big { font-size:40px; margin-bottom:10px; }
+  .empty h3 { color:#6b7280; font-size:16px; margin-bottom:4px; }
 </style>
-
-<base target="_blank">
-
 </head>
-
 <body>
 
 <div class="app">
-
   <div class="header">
     <h1>📚 GE Assignments</h1>
-    <p>5 PDFs — Preview, then check out to claim</p>
+    <p>30 PDFs — Preview, then check out to download</p>
   </div>
 
   <div class="stats">
-    <div class="pill">
-      <span class="dot av"></span>
-      <span id="av-count">5 Available</span>
-    </div>
-    <div class="pill">
-      <span class="dot so"></span>
-      <span id="so-count">0 Sold</span>
-    </div>
+    <div class="pill"><span class="dot av"></span><span id="av-count">30 Available</span></div>
+    <div class="pill"><span class="dot so"></span><span id="so-count">0 Sold</span></div>
   </div>
 
   <div class="filters">
@@ -631,13 +208,11 @@ body {
     <button class="fbtn" onclick="setFilter('sold',this)">Sold Out</button>
   </div>
 
-  <div id="grid">
-    <div class="loading">Loading assignments...</div>
-  </div>
-
+  <div id="grid"></div>
+  <div class="scroll-hint">↓ Scroll to see all 30 assignments ↓</div>
 </div>
 
-<!-- PREVIEW MODAL -->
+<!-- Preview Sheet Modal -->
 <div class="modal-o" id="previewModal" onclick="if(event.target===this)closePreview()">
   <div class="modal-sheet">
     <div class="sheet-header">
@@ -664,7 +239,7 @@ body {
   </div>
 </div>
 
-<!-- CHECKOUT MODAL -->
+<!-- Checkout Modal -->
 <div class="checkout-o" id="checkoutModal" onclick="if(event.target===this)closeCheckout()">
   <div class="checkout-box">
     <div id="checkoutForm">
@@ -672,137 +247,82 @@ body {
       <p class="sub">Enter your name to claim this PDF</p>
       <div class="input-wrap">
         <label>Your Full Name</label>
-        <input type="text" id="userName" placeholder="e.g. Rahul Sharma" autocomplete="name" maxlength="100">
+        <input type="text" id="userName" placeholder="e.g. Rahul Sharma" autocomplete="name">
       </div>
       <div class="ck-actions">
         <button class="btn btn-ghost" onclick="closeCheckout()">Cancel</button>
-        <button class="btn btn-primary" id="checkoutSubmit" onclick="doCheckout()">Check Out</button>
+        <button class="btn btn-primary" onclick="doCheckout()">Check Out</button>
       </div>
     </div>
     <div class="success-state" id="successState">
       <div class="success-icon">✅</div>
-      <h4>Successfully Claimed!</h4>
-      <p class="buyer">Hi <span id="buyerName"></span></p>
-      <div class="claimed-box">
-        🔒 This PDF is now SOLD OUT.<br>
-        It is no longer available for checkout.
-      </div>
-      <button class="btn btn-primary" style="margin-top:15px;width:100%;" onclick="closeCheckout()">Done</button>
+      <h4>Checked Out!</h4>
+      <p class="buyer">Hi <span id="buyerName"></span>, your PDF is ready</p>
+      <a href="#" class="dl-btn" onclick="event.preventDefault();alert('📥 Downloading PDF...')">⬇️ Download PDF</a>
     </div>
   </div>
 </div>
 
 <script>
-/* =====================================================
-   SUPABASE CONFIGURATION (Optional — leave as-is for local mode)
-   ===================================================== */
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-
-/* =====================================================
-   PDF LOCATION — works on GitHub Pages with relative path
-   ===================================================== */
-const PDF_BASE_URL = "pdfs";
-
-/* =====================================================
-   ASSIGNMENT INFORMATION — EDIT THIS ARRAY TO ADD/MODIFY PDFs
-   =====================================================
-
-   HOW TO ADD A NEW PDF MANUALLY:
-   -------------------------------
-   1. Put your PDF file inside the "pdfs/" folder.
-   2. Name it following the pattern: assignment01.pdf, assignment02.pdf, etc.
-   3. Add a new object inside the "topics" array below.
-   4. Each object needs 4 things:
-      - t  = Title (short name of the assignment)
-      - d  = Description (1-2 sentences about the content)
-      - img = Cover image URL (use any image link, or keep the placeholder)
-      - pages = Total number of pages in the PDF
-
-   The order in this array = the order shown on the website.
-   The code automatically assigns IDs (1, 2, 3...) and creates PDF links.
-*/
-
 const topics = [
-  {
-    t: "Communication Tools (Detailed)",
-    d: "Comprehensive assignment covering traditional vs digital communication, G2C/G2G governance platforms, MyGov, UMANG, DigiLocker, case studies, impact & challenges in public administration.",
-    img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80",
-    pages: 12
-  },
-  {
-    t: "Communication Tools (Basic)",
-    d: "Covers introduction to communication, types of tools, e-governance platforms in India, benefits, challenges, case studies and future of communication technology.",
-    img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80",
-    pages: 12
-  },
-  {
-    t: "Misuse of Social Media (Set A)",
-    d: "Cyberbullying, fake news & disinformation, privacy violations, social media addiction, mental health impact, case studies, legal framework in India and preventive measures.",
-    img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80",
-    pages: 13
-  },
-  {
-    t: "Misuse of Social Media (Set B)",
-    d: "Same comprehensive coverage: cyberbullying, fake news, privacy violations, addiction, legal framework (IT Act, DPDP Act), case studies and prevention strategies.",
-    img: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80",
-    pages: 13
-  },
-  {
-    t: "Misuse of Social Media (Set C)",
-    d: "Covers all major types of social media misuse, Cambridge Analytica case study, mob lynchings, deepfakes, sextortion, and the legal framework under Indian cyber laws.",
-    img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&q=80",
-    pages: 13
-  }
+  {t:"Environmental Science",d:"Covers ecosystems, biodiversity, pollution control, and sustainable development practices.",img:"https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80"},
+  {t:"Indian Constitution",d:"Fundamental rights, directive principles, parliamentary structure, and constitutional amendments.",img:"https://images.unsplash.com/photo-1523995462485-3d171b5c8fa9?w=600&q=80"},
+  {t:"Human Values & Ethics",d:"Moral philosophy, ethical decision-making, and value-based education frameworks.",img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80"},
+  {t:"Communication Skills",d:"Verbal & non-verbal communication, presentation skills, and professional writing.",img:"https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80"},
+  {t:"Critical Thinking",d:"Logical reasoning, argument analysis, problem-solving strategies, and cognitive biases.",img:"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80"},
+  {t:"Digital Literacy",d:"Internet safety, digital tools, information literacy, and online collaboration.",img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80"},
+  {t:"Entrepreneurship",d:"Business planning, startup fundamentals, innovation, and market analysis.",img:"https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80"},
+  {t:"Financial Literacy",d:"Budgeting, investing basics, taxation, and personal finance management.",img:"https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&q=80"},
+  {t:"Psychology Basics",d:"Cognitive processes, behavioral theories, personality, and mental health awareness.",img:"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80"},
+  {t:"Sociology Intro",d:"Social structures, cultural dynamics, institutions, and societal change patterns.",img:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80"},
+  {t:"Philosophy",d:"Ancient to modern philosophical thought, metaphysics, epistemology, and ethics.",img:"https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80"},
+  {t:"Gender Studies",d:"Gender roles, feminism, LGBTQ+ awareness, and intersectionality concepts.",img:"https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&q=80"},
+  {t:"Disaster Management",d:"Risk assessment, emergency response, mitigation strategies, and recovery planning.",img:"https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&q=80"},
+  {t:"Health & Wellness",d:"Nutrition, physical fitness, disease prevention, and holistic well-being.",img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80"},
+  {t:"Yoga & Meditation",d:"Yoga asanas, breathing techniques, mindfulness, and stress reduction methods.",img:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80"},
+  {t:"Art Appreciation",d:"Visual arts history, aesthetics, famous artworks, and creative expression.",img:"https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80"},
+  {t:"Music Theory",d:"Musical notation, scales, chords, rhythm patterns, and composition basics.",img:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&q=80"},
+  {t:"Drama & Theatre",d:"Acting techniques, stagecraft, script analysis, and theatrical history.",img:"https://images.unsplash.com/photo-1503095396547-31489c0d9388?w=600&q=80"},
+  {t:"Creative Writing",d:"Fiction, poetry, storytelling techniques, character development, and narrative arcs.",img:"https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&q=80"},
+  {t:"Public Speaking",d:"Speech preparation, audience engagement, body language, and overcoming anxiety.",img:"https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&q=80"},
+  {t:"Leadership Skills",d:"Team motivation, conflict resolution, strategic vision, and decision-making.",img:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80"},
+  {t:"Team Building",d:"Collaboration techniques, trust exercises, group dynamics, and effective teamwork.",img:"https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80"},
+  {t:"Stress Management",d:"Coping mechanisms, time management, relaxation techniques, and work-life balance.",img:"https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80"},
+  {t:"Time Management",d:"Prioritization, scheduling, productivity hacks, and goal-setting frameworks.",img:"https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=600&q=80"},
+  {t:"Decision Making",d:"Analytical thinking, risk evaluation, SWOT analysis, and strategic choices.",img:"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80"},
+  {t:"Problem Solving",d:"Root cause analysis, brainstorming, design thinking, and solution implementation.",img:"https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&q=80"},
+  {t:"Innovation & Design",d:"Design thinking process, prototyping, user research, and creative innovation.",img:"https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600&q=80"},
+  {t:"Research Methods",d:"Qualitative & quantitative research, data collection, and academic methodology.",img:"https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?w=600&q=80"},
+  {t:"Academic Writing",d:"Thesis structure, citation styles, literature review, and scholarly communication.",img:"https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80"},
+  {t:"Career Planning",d:"Resume building, interview skills, career mapping, and professional networking.",img:"https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80"}
 ];
 
-/* =====================================================
-   CREATE PDF OBJECTS — DO NOT TOUCH BELOW THIS LINE
-   ===================================================== */
-let pdfs = topics.map((tp,i) => ({
-  id: i + 1,
-  title: `GE ${String(i + 1).padStart(2,'0')}: ${tp.t}`,
-  desc: tp.d,
-  img: tp.img,
-  pages: tp.pages,
-  size: "PDF",
-  time: "Read online",
-  sold: false,
-  buyer: null,
-  pdfUrl: `${PDF_BASE_URL}/assignment${String(i + 1).padStart(2,'0')}.pdf`
+let pdfs = topics.map((tp,i)=>({
+  id:i+1, title:`GE ${String(i+1).padStart(2,'0')}: ${tp.t}`,
+  desc:tp.d, img:tp.img,
+  pages:Math.floor(Math.random()*18)+8,
+  size:(Math.random()*2.5+0.5).toFixed(1)+' MB',
+  time:Math.floor(Math.random()*15+5)+' min read',
+  sold:false, buyer:null
 }));
 
-let filter = "all";
-let selPdf = null;
+let filter='all', selPdf=null;
 
-/* =====================================================
-   RENDER WEBSITE
-   ===================================================== */
-function render() {
-  const grid = document.getElementById("grid");
-  const available = pdfs.filter(p => !p.sold).length;
-  const sold = pdfs.filter(p => p.sold).length;
+function render(){
+  const g=document.getElementById('grid');
+  const av=pdfs.filter(p=>!p.sold).length, so=pdfs.filter(p=>p.sold).length;
+  document.getElementById('av-count').textContent=av+' Available';
+  document.getElementById('so-count').textContent=so+' Sold';
 
-  document.getElementById("av-count").textContent = available + " Available";
-  document.getElementById("so-count").textContent = sold + " Sold";
+  let list=pdfs;
+  if(filter==='available') list=pdfs.filter(p=>!p.sold);
+  if(filter==='sold') list=pdfs.filter(p=>p.sold);
 
-  let list = pdfs;
-  if(filter === "available") list = pdfs.filter(p => !p.sold);
-  if(filter === "sold") list = pdfs.filter(p => p.sold);
+  if(!list.length){ g.innerHTML='<div class="empty"><div class="big">📭</div><h3>No PDFs here</h3><p>Try another filter</p></div>'; return; }
 
-  if(!list.length) {
-    grid.innerHTML = `
-      <div class="empty">
-        <div class="big">📭</div>
-        <h3>No PDFs here</h3>
-        <p>Try another filter</p>
-      </div>`;
-    return;
-  }
-
-  grid.innerHTML = list.map(p => `
-    <div class="card ${p.sold ? "sold" : ""}">
-      <div class="badge ${p.sold ? "badge-so" : "badge-av"}">${p.sold ? "Sold Out" : "Available"}</div>
+  g.innerHTML=list.map(p=>`
+    <div class="card ${p.sold?'sold':''}">
+      <div class="badge ${p.sold?'badge-so':'badge-av'}">${p.sold?'Sold Out':'Available'}</div>
       <div class="card-top">
         <div class="icon-box">📄</div>
         <div class="card-info">
@@ -810,190 +330,75 @@ function render() {
           <div class="meta">${p.pages} pages • ${p.size}</div>
         </div>
       </div>
+      ${!p.sold?`
       <div class="preview-thumb" onclick="openPreview(${p.id})">
-        <img src="${p.img}" alt="PDF preview" loading="lazy">
+        <img src="${p.img}" alt="preview" loading="lazy">
         <div class="preview-overlay">👁️ Tap to Preview</div>
       </div>
-      ${!p.sold ? `
-        <div class="actions">
-          <button class="btn btn-preview" onclick="openPreview(${p.id})">👁️ Preview</button>
-          <button class="btn btn-checkout" onclick="openCheckout(${p.id})">Check Out →</button>
-        </div>
-      ` : `
-        <div class="sold-bar"><span>🔒</span> SOLD OUT</div>
-        <div class="sold-message">This PDF has already been claimed.</div>
-      `}
+      <div class="actions">
+        <button class="btn btn-preview" onclick="openPreview(${p.id})">👁️ Preview</button>
+        <button class="btn btn-checkout" onclick="openCheckout(${p.id})">Check Out →</button>
+      </div>
+      `:``}
+      ${p.sold?`
+      <div class="preview-thumb">
+        <img src="${p.img}" alt="preview" loading="lazy" style="filter:grayscale(1)">
+        <div class="preview-overlay">🔒 SOLD OUT</div>
+      </div>
+      <div class="sold-bar"><span>🔒</span> SOLD OUT</div>
+      <div class="sold-by">Claimed by: <strong>${p.buyer}</strong></div>
+      `:``}
     </div>
-  `).join("");
+  `).join('');
 }
 
-/* =====================================================
-   FILTER
-   ===================================================== */
-function setFilter(f, el) {
-  filter = f;
-  document.querySelectorAll(".fbtn").forEach(button => button.classList.remove("active"));
-  el.classList.add("active");
+function setFilter(f,el){
+  filter=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
   render();
 }
 
-/* =====================================================
-   OPEN PREVIEW
-   ===================================================== */
-function openPreview(id) {
-  selPdf = pdfs.find(p => p.id === id);
-  if(!selPdf) return;
+function openPreview(id){
+  selPdf=pdfs.find(p=>p.id===id);
+  document.getElementById('previewImg').src=selPdf.img;
+  document.getElementById('previewTitle').textContent=selPdf.title;
+  document.getElementById('previewDesc').textContent=selPdf.desc;
+  document.getElementById('previewSize').textContent=selPdf.size;
+  document.getElementById('previewPages').textContent=selPdf.pages;
+  document.getElementById('previewPages2').textContent=selPdf.pages;
+  document.getElementById('previewTime').textContent=selPdf.time;
+  document.getElementById('previewCheckoutBtn').style.display=selPdf.sold?'none':'block';
+  document.getElementById('previewModal').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closePreview(){ document.getElementById('previewModal').classList.remove('active'); document.body.style.overflow=''; }
 
-  document.getElementById("previewImg").src = selPdf.img;
-  document.getElementById("previewTitle").textContent = selPdf.title;
-  document.getElementById("previewDesc").textContent = selPdf.desc;
-  document.getElementById("previewSize").textContent = selPdf.size;
-  document.getElementById("previewPages").textContent = selPdf.pages;
-  document.getElementById("previewPages2").textContent = selPdf.pages;
-  document.getElementById("previewTime").textContent = selPdf.time;
-  document.getElementById("previewCheckoutBtn").style.display = selPdf.sold ? "none" : "block";
-  document.getElementById("previewModal").classList.add("active");
-  document.body.style.overflow = "hidden";
+function previewToCheckout(){ closePreview(); setTimeout(()=>openCheckout(selPdf.id),200); }
+
+function openCheckout(id){
+  selPdf=pdfs.find(p=>p.id===id);
+  document.getElementById('checkoutModal').classList.add('active');
+  document.getElementById('checkoutForm').style.display='block';
+  document.getElementById('successState').classList.remove('active');
+  document.getElementById('userName').value='';
+  setTimeout(()=>document.getElementById('userName').focus(),100);
+  document.body.style.overflow='hidden';
+}
+function closeCheckout(){ document.getElementById('checkoutModal').classList.remove('active'); document.body.style.overflow=''; }
+
+function doCheckout(){
+  const name=document.getElementById('userName').value.trim();
+  if(!name){ alert('Please enter your name'); return; }
+  selPdf.sold=true; selPdf.buyer=name;
+  document.getElementById('checkoutForm').style.display='none';
+  document.getElementById('buyerName').textContent=name;
+  document.getElementById('successState').classList.add('active');
+  setTimeout(render,100);
 }
 
-/* =====================================================
-   CLOSE PREVIEW
-   ===================================================== */
-function closePreview() {
-  document.getElementById("previewModal").classList.remove("active");
-  document.body.style.overflow = "";
-}
-
-/* =====================================================
-   PREVIEW → CHECKOUT
-   ===================================================== */
-function previewToCheckout() {
-  if(!selPdf) return;
-  if(selPdf.sold) { closePreview(); return; }
-  closePreview();
-  setTimeout(() => openCheckout(selPdf.id), 200);
-}
-
-/* =====================================================
-   OPEN CHECKOUT
-   ===================================================== */
-function openCheckout(id) {
-  selPdf = pdfs.find(p => p.id === id);
-  if(!selPdf) return;
-  if(selPdf.sold) { alert("Sorry! This PDF is already SOLD OUT."); render(); return; }
-
-  document.getElementById("checkoutModal").classList.add("active");
-  document.getElementById("checkoutForm").style.display = "block";
-  document.getElementById("successState").classList.remove("active");
-  document.getElementById("userName").value = "";
-  document.body.style.overflow = "hidden";
-  setTimeout(() => document.getElementById("userName").focus(), 100);
-}
-
-/* =====================================================
-   CLOSE CHECKOUT
-   ===================================================== */
-function closeCheckout() {
-  document.getElementById("checkoutModal").classList.remove("active");
-  document.body.style.overflow = "";
-}
-
-/* =====================================================
-   CHECKOUT
-   ===================================================== */
-async function doCheckout() {
-  const name = document.getElementById("userName").value.trim();
-  if(!name) { alert("Please enter your name."); return; }
-  if(!selPdf) return;
-  if(selPdf.sold) { alert("Sorry! This PDF is already SOLD OUT."); closeCheckout(); render(); return; }
-
-  const button = document.getElementById("checkoutSubmit");
-  button.disabled = true;
-  button.textContent = "Checking...";
-
-  if(SUPABASE_URL === "YOUR_SUPABASE_URL" || SUPABASE_ANON_KEY === "YOUR_SUPABASE_ANON_KEY") {
-    await new Promise(resolve => setTimeout(resolve, 700));
-    selPdf.sold = true;
-    selPdf.buyer = name;
-    showSuccess(name);
-    button.disabled = false;
-    button.textContent = "Check Out";
-    return;
-  }
-
-  try {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/pdf_claims`, {
-      method: "POST",
-      headers: {
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-        "Content-Type": "application/json",
-        "Prefer": "return=representation"
-      },
-      body: JSON.stringify({ pdf_id: selPdf.id, buyer_name: name })
-    });
-
-    if(response.status === 409) {
-      selPdf.sold = true;
-      alert("Sorry! Someone else claimed this PDF first. It is now SOLD OUT.");
-      closeCheckout(); render(); return;
-    }
-    if(!response.ok) throw new Error("Checkout failed");
-
-    selPdf.sold = true;
-    selPdf.buyer = name;
-    showSuccess(name);
-  } catch(error) {
-    console.error(error);
-    alert("Could not complete checkout. Please try again.");
-  }
-
-  button.disabled = false;
-  button.textContent = "Check Out";
-}
-
-/* =====================================================
-   SHOW SUCCESS
-   ===================================================== */
-function showSuccess(name) {
-  document.getElementById("checkoutForm").style.display = "none";
-  document.getElementById("buyerName").textContent = name;
-  document.getElementById("successState").classList.add("active");
-  render();
-}
-
-/* =====================================================
-   ENTER KEY
-   ===================================================== */
-document.getElementById("userName").addEventListener("keypress", function(event) {
-  if(event.key === "Enter") doCheckout();
-});
-
-/* =====================================================
-   START
-   ===================================================== */
+document.getElementById('userName').addEventListener('keypress',e=>{ if(e.key==='Enter') doCheckout(); });
 render();
-
-async function loadSoldStatus() {
-  if(SUPABASE_URL === "YOUR_SUPABASE_URL" || SUPABASE_ANON_KEY === "YOUR_SUPABASE_ANON_KEY") return;
-  try {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/pdf_claims?select=pdf_id,buyer_name`, {
-      headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` }
-    });
-    if(!response.ok) throw new Error("Unable to load claims");
-    const claims = await response.json();
-    pdfs.forEach(pdf => {
-      const claim = claims.find(item => Number(item.pdf_id) === pdf.id);
-      if(claim) { pdf.sold = true; pdf.buyer = claim.buyer_name; }
-    });
-    render();
-  } catch(error) {
-    console.error("Could not load sold status:", error);
-  }
-}
-
-loadSoldStatus();
 </script>
-
 </body>
 </html>
